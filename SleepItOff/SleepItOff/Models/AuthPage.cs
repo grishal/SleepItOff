@@ -17,7 +17,7 @@ namespace SleepItOff.Models
         private LiveIdCredentials creds = new LiveIdCredentials();
 
         private const string client_id = "05c0fa93-a596-4484-a671-98a5e35db4ee";
-        private const string scope = "mshealth.ReadDevices mshealth.ReadActivityHistory mshealth.ReadActivityLocation mshealth.ReadDevices";
+        private const string scope = "mshealth.ReadDevices mshealth.ReadActivityHistory mshealth.ReadActivityLocation mshealth.ReadDevices offline_access";
         private const string redirect_uri = "https://login.microsoftonline.com/common/oauth2/nativeclient";
         private string response_code = ""; //getting after first GET
         private const string BaseHealthUri = "https://api.microsofthealth.net/v1/me/";
