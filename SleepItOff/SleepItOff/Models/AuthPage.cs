@@ -19,11 +19,12 @@ namespace SleepItOff.Models
         private const string client_id = "05c0fa93-a596-4484-a671-98a5e35db4ee";
         private const string scope = "mshealth.ReadDevices mshealth.ReadActivityHistory mshealth.ReadActivityLocation mshealth.ReadDevices offline_access";
         private const string redirect_uri = "https://login.microsoftonline.com/common/oauth2/nativeclient";
-        private string response_code = ""; //getting after first GET
+        public string response_code = ""; //getting after first GET
+        // change response code to private
         private const string BaseHealthUri = "https://api.microsofthealth.net/v1/me/";
 
 
-        private async Task SigninButton_ClickAsync(object sender, EventArgs e)
+        public async Task SigninButton_ClickAsync(object sender, EventArgs e)
         {
             //create URL to send
             UriBuilder uri = new UriBuilder("https://login.live.com/oauth20_authorize.srf");
