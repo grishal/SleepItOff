@@ -39,8 +39,8 @@ namespace SleepItOff.Models
             var httpClient = new HttpClient();
             httpClient.BaseAddress = uri.Uri;
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri.Uri);            
-            var httpResponse = await httpClient.SendAsync(httpRequestMessage).ConfigureAwait(false);                    
-            response_code = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var httpResponse = httpClient.SendAsync(httpRequestMessage).ConfigureAwait(false);                    
+            //response_code = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             await GettingTokken(sender, e); //after we have the code, trying to get the token
 
