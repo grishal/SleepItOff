@@ -36,7 +36,8 @@ namespace SleepItOff.Models
             uri.Query = query.ToString();
 
             //sending URL and waiting for response code
-            var httpClient = new HttpClient();                        
+            var httpClient = new HttpClient();
+            httpClient.BaseAddress = uri.Uri;
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri.Uri);            
             var httpResponse = await httpClient.SendAsync(httpRequestMessage).ConfigureAwait(false);                    
             response_code = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
