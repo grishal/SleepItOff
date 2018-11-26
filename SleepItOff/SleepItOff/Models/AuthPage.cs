@@ -35,8 +35,7 @@ namespace SleepItOff.Models
             uri.Query = query.ToString();
 
             //sending URL and waiting for response code
-            var httpClient = new HttpClient();            
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(convertStringtoByteArray(userName, userPassword)));
+            var httpClient = new HttpClient();                        
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri.Uri);            
             var httpResponse = await httpClient.SendAsync(httpRequestMessage).ConfigureAwait(false);                    
             response_code = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -53,8 +52,7 @@ namespace SleepItOff.Models
             query.AppendFormat("&client_id={0}", Uri.EscapeDataString(client_id));
             uri.Query = query.ToString();
 
-            var httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(convertStringtoByteArray(userName, userPassword)));
+            var httpClient = new HttpClient();           
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri.Uri);
             var httpResponse = await httpClient.SendAsync(httpRequestMessage).ConfigureAwait(false);
         }
