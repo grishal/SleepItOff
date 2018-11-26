@@ -39,6 +39,7 @@ namespace SleepItOff.Models
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri.Uri);            
             var httpResponse = await httpClient.SendAsync(httpRequestMessage).ConfigureAwait(false);                    
             response_code = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+            //todo extract "code" value from the response (maybe)
 
             await GettingTokken(sender, e); //after we have the code, trying to get the token
 
@@ -84,7 +85,35 @@ namespace SleepItOff.Models
             creds.RefreshToken = (string)jsonResponse["refresh_token"];
             string error = (string)jsonResponse["error"];
         }
-        
+
+
+        private async Task RefreshToken(object sender, EventArgs e)
+        {
+            //create URL to send
+            UriBuilder uri = new UriBuilder("https://login.live.com/oauth20_token.srf");
+            var query = new StringBuilder();
+            query.AppendFormat("redirect_uri={0}", Uri.EscapeDataString(redirect_uri));
+            query.AppendFormat("&client_id={0}", Uri.EscapeDataString(client_id));
+            query.AppendFormat("&refresh_token={0}", Uri.EscapeDataString(creds.RefreshToken));
+            query.Append("&grant_type=refresh_token");
+            uri.Query = query.ToString();
+
+            //sending URL and waiting for response JSON
+            var httpClient = new HttpClient();
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri.Uri);
+            var httpResponse = await httpClient.SendAsync(httpRequestMessage).ConfigureAwait(false);
+            var stringResponse = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            //reading JSON response and updating credentials
+            var jsonResponse = JObject.Parse(stringResponse);
+            creds.AccessToken = (string)jsonResponse["access_token"];
+            creds.ExpiresIn = (long)jsonResponse["expires_in"];
+            creds.RefreshToken = (string)jsonResponse["refresh_token"];
+            string error = (string)jsonResponse["error"];
+
+
+        }
+
 
     }
 }
