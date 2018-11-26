@@ -28,8 +28,8 @@ namespace SleepItOff.Models
             //create URL to send
             UriBuilder uri = new UriBuilder("https://login.live.com/oauth20_authorize.srf");
             var query = new StringBuilder();
-            query.AppendFormat("&client_id={0}", Uri.EscapeDataString(client_id));
             query.AppendFormat("redirect_uri={0}", Uri.EscapeDataString(redirect_uri));
+            query.AppendFormat("&client_id={0}", Uri.EscapeDataString(client_id));           
             query.AppendFormat("&scope={0}", Uri.EscapeDataString(scope));
             query.Append("&response_type=code");
             uri.Query = query.ToString();
